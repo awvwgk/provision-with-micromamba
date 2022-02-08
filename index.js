@@ -46,6 +46,7 @@ async function run () {
     const envYaml = yaml.safeLoad(fs.readFileSync(envFilePath, 'utf8'))
     const extraSpecs = core.getInput('extra-specs').split("\n").filter(x => x !== "");
     const envName = core.getInput('environment-name') || envYaml.name
+    const channelPriority = core.getInput('channel-priority')
     const condarc = path.join(os.homedir(), '.condarc')
     const profile = path.join(os.homedir(), '.bash_profile')
     const bashrc = path.join(os.homedir(), '.bashrc')
@@ -58,7 +59,7 @@ async function run () {
     touch(condarc)
     fs.appendFileSync(condarc, 'always_yes: true\n')
     fs.appendFileSync(condarc, 'show_channel_urls: true\n')
-    fs.appendFileSync(condarc, 'channel_priority: strict\n')
+    fs.appendFileSync(condarc, 'channel_priority: ' + channelPriority + '\n')
     if (envYaml.channels !== undefined) {
       fs.appendFileSync(condarc, 'channels: [' + envYaml.channels.join(', ') + ']\n')
     }

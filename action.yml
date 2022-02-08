@@ -19,6 +19,10 @@ inputs:
     description: "extra specifications to install (defaults is empty)"
     required: false
     default: ""
+  channel-priority:
+    description: 'Accepts values of "strict", "flexible", and "disabled". The default value is "strict".'
+    required: false
+    default: "strict"
 
 runs:
   using: "node12"
